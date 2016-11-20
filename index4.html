@@ -1,0 +1,29 @@
+<html>
+<link rel="stylesheet" href="https://d2imzjri19ww0c.cloudfront.net/stylesheets/static_application-1479314472.css" type="text/css">
+
+<div class="chat-messages" gm-scroll-target="">
+
+  <!----><div class="chat-loading" ng-if="showLoader()" ng-class="{visible: loadingPage || !chatLoaded}">
+    <img src="/images/gm-hash-spinner.gif" alt="Loading...">
+  </div><!---->
+
+  <!---->
+
+  <!----><div class="pages has-server-pages" ng-class="{'has-server-pages': chatContent.pages.length}" ng-if="chatLoaded &amp;&amp; !isChatEmpty()">
+
+    <div class="server-pages" gmvar-chat-id="chat.id" gmvar-page-count="visiblePageCount" gmvar-pages="chatContent.pages" gmvar-page-loaded="pageLoaded"><div class="page">
+
+      %%Message%%
+
+
+    </div>
+
+    <div class="push-pages" gmvar-chat-id="chat.id" gmvar-page-size="chatContent.maxPageSize" gmvar-poll-water-mark="chatContent.pollWaterMarkID" gmvar-dirty-pushes="chatContent.dirtyPushes">
+  <!---->
+</div>
+
+  </div><!---->
+
+</div>
+</div>
+</html>

@@ -1,9 +1,7 @@
 import requests
 import pickle
-
-# response = requests.get('https://api.groupme.com/v3/groups?token=fc590e2090b601343be70d176227746f')
-# print response
-# data = response.json()
+token = "TOKEN"
+groupId = '13806593'
 
 def getOldestMessageID(response):
     messages = response['response']['messages']
@@ -17,7 +15,7 @@ def requestMessages(limit, since_id = 0):
     if since_id == 0:
         payload = {"limit" : limit}
     print payload
-    response = requests.get('https://api.groupme.com/v3/groups/1514901/messages?token=', payload)
+    response = requests.get('https://api.groupme.com/v3/groups/' +groupId+ '/messages?token=' + token, payload)
     if(response.status_code == 200):
         return response.json()
 

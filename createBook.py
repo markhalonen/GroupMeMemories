@@ -8,7 +8,7 @@ imageMaxHeight = 400.0
 reload(sys)
 sys.setdefaultencoding('utf8')
 page = open("index4.html", "r").read()
-allMessages = pickle.load(open( "familyGroup.p", "rb" ))
+allMessages = pickle.load(open( "out/yardsList.p", "rb" ))
 dateDiv = '<!----><div class="timestamp-divider" ng-if="message.formattedTimestamp" ng-bind="message.formattedTimestamp">%%Date%%</div><!---->'
 
 def addImageMessage(page, userName, userNameUrl, text, imageurl, likes, date):
@@ -64,7 +64,7 @@ sortedMessages = sorted(allMessages, key=lambda message: len(message['favorited_
 count = 0
 idx = 0
 topMessages = []
-while count < 40:
+while count < 50:
     if idx >= len(sortedMessages):
         break
     if len(sortedMessages[idx]['attachments']) == 0 and False:
@@ -83,11 +83,22 @@ while idx < len(allMessages):
     #Add each message in order and those within 5 minutes
     revIdx = len(allMessages) - 1 - idx
     if allMessages[revIdx] in topMessages:
-        allMessages[revIdx]['is_event'] = True
-        bookMessages.append(allMessages[revIdx])
         atTime = int(allMessages[revIdx]['created_at'])
-        nextIdx = revIdx - 1
+        #Reverse backwards if messages were in the last five minutes
+        nextIdx = revIdx + 1
+        messagesPresent = False
+        while int(allMessages[nextIdx]['created_at'] > atTime - timeRange):
+            nextIdx = nextIdx + 1
+            messagesPresent = True
+
+        if not messagesPresent:
+            nextIdx = revIdx
+        allMessages[nextIdx]['is_event'] = True
+        bookMessages.append(allMessages[nextIdx])
+
+        nextIdx = nextIdx - 1
         count = 1
+        #Add the messages that followed the event message.
         while int(allMessages[nextIdx]['created_at']) < atTime + timeRange:
             allMessages[nextIdx]['is_event'] = False
             bookMessages.append(allMessages[nextIdx])
@@ -105,11 +116,13 @@ for message in bookMessages:
         date = datetime.datetime.fromtimestamp(int(message['created_at'])).strftime("%B %d, %Y")
         if not message['is_event']:
             date = ""
-        page = addTextMessage(page, message["name"], message['avatar_url'], text, str(len(message['favorited_by'])), date)
+        avatar_url = message['avatar_url'] if message['avatar_url'] is not None else ""
+        page = addTextMessage(page, message["name"], avatar_url, text, str(len(message['favorited_by'])), date)
     else:
         date = datetime.datetime.fromtimestamp(int(message['created_at'])).strftime("%B %d, %Y")
         if not message['is_event']:
             date = ""
-        page = addImageMessage(page, message["name"], message['avatar_url'], text, message['attachments'][0]['url'], str(len(message['favorited_by'])), date)
+        avatar_url = message['avatar_url'] if message['avatar_url'] is not None else ""
+        page = addImageMessage(page, message["name"], avatar_url, text, message['attachments'][0]['url'], str(len(message['favorited_by'])), date)
 
 print page
