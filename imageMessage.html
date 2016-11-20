@@ -1,19 +1,3 @@
-<html>
-<link rel="stylesheet" href="https://d2imzjri19ww0c.cloudfront.net/stylesheets/static_application-1479314472.css" type="text/css">
-
-<div class="chat-messages" gm-scroll-target="">
-
-  <!----><div class="chat-loading" ng-if="showLoader()" ng-class="{visible: loadingPage || !chatLoaded}">
-    <img src="/images/gm-hash-spinner.gif" alt="Loading...">
-  </div><!---->
-
-  <!---->
-
-  <!----><div class="pages has-server-pages" ng-class="{'has-server-pages': chatContent.pages.length}" ng-if="chatLoaded &amp;&amp; !isChatEmpty()">
-
-    <div class="server-pages" gmvar-chat-id="chat.id" gmvar-page-count="visiblePageCount" gmvar-pages="chatContent.pages" gmvar-page-loaded="pageLoaded"><div class="page">
-
-
       <div id="D0D96006-C11C-4EEA-AF93-8DD8C3D92522" class="message is-bookend with-timestamp" ng-class="{
     me: currentUser.id == message.user_id,
     'is-continuation': message.isContinuation,
@@ -22,18 +6,18 @@
     highlight: message.showHighlight
   }">
 
-  <!----><div class="timestamp-divider" ng-if="message.formattedTimestamp" ng-bind="message.formattedTimestamp">Mon, 4:20 PM</div><!---->
+  <!--<div class="timestamp-divider" ng-if="message.formattedTimestamp" ng-bind="message.formattedTimestamp">%%Date%%</div>-->%%DateDiv%%
 
   <div class="message-header clearfix">
 
     <div class="avatar">
       <div class="avatar-crop img-circle text-center" ng-click="openOneOnOne()">
-        <!----><img alt="Avatar" class="img-responsive" ng-if="(!message.system &amp;&amp; message.sender_type !== 'system')" gm-avatar="message.avatar_url" src="https://i.groupme.com/750x750.jpeg.25c6aae440c644ecb467952f85e83365.avatar"><!---->
+        <!----><img alt="Avatar" class="img-responsive" ng-if="(!message.system &amp;&amp; message.sender_type !== 'system')" gm-avatar="message.avatar_url" src="%%UserNameUrl%%"><!---->
         <!---->
       </div>
     </div>
 
-    <!----><div ng-if="!(isDMChat &amp;&amp; currentUser &amp;&amp; currentUser.id != message.user_id &amp;&amp; isLastInChat())" class="nickname" gm-twemoji="message.name">Mary Kilpela</div><!---->
+    <!----><div ng-if="!(isDMChat &amp;&amp; currentUser &amp;&amp; currentUser.id != message.user_id &amp;&amp; isLastInChat())" class="nickname" gm-twemoji="message.name">%%UserName%%</div><!---->
     <!---->
 
   </div>
@@ -45,7 +29,7 @@
       <!----><div class="likes-container liked" ng-controller="LikesController" ng-if="!message.failed &amp;&amp; message.id" ng-class="{'liked': message.favorited_by.length, 'liked-by-me': likedByMe}" ng-click="toggleLike()" ng-mouseover="message.showHighlight = true;" ng-mouseleave="message.showHighlight = false;" gm-tooltip="" gm-likes-ghost="" gm-determine-context="">
         <i class="gmicon-heart"></i>
         <i class="gmicon-heart-outline"></i>
-        <span class="count" ng-show="message.favorited_by.length" ng-bind="message.favorited_by.length">3</span>
+        <span class="count" ng-show="message.favorited_by.length" ng-bind="message.favorited_by.length">%%Likes%%</span>
 
 
         <div class="pop-over" ng-show="likesList.length">
@@ -74,19 +58,19 @@
     <div class="content">
 
       <div class="readability">
-        <!----><div class="message-text" ng-if="message.decoration.textArray &amp;&amp; !message.decoration.hideText"><span gm-twemoji="text" gmvar-embiggen="true">Diploma! Whoot whoot! Online school rocks <img class="emoji" draggable="false" alt="👍🏻" src="https://twemoji.maxcdn.com/2/72x72/1f44d-1f3fb.png"></span></div><!---->
+        <!----><div class="message-text" ng-if="message.decoration.textArray &amp;&amp; !message.decoration.hideText"><span gm-twemoji="text" gmvar-embiggen="true">%%Text%%</span></div><!---->
 
-        <!----><div class="attachments" ng-if="message.attachments.length"><div class="attachment image" ng-style="{'max-width': imageWidth+'px'}" style="max-width: 300px;">
+        <!----><div class="attachments" ng-if="message.attachments.length"><div class="attachment image" ng-style="{'max-width': imageWidth+'px'}" style="max-width: %%ImageWidth%%px;">
 
   <div class="image-content" gmvar-image-url="url" gmvar-source-image-url="source_url" gmvar-image-width="imageWidth" gmvar-image-height="imageHeight" gmvar-on-load="imageLoaded" gmvar-on-click="openZoomedImage">
 
-  <div class="layout" ng-show="!imageMessage" ng-class="{'loading-image': loadingImage}" style="max-width: 300px;">
+  <div class="layout" ng-show="!imageMessage" ng-class="{'loading-image': loadingImage}" style="max-width: %%ImageWidth%%px;">
 
     <!---->
 
     <div class="image-wrapper">
-      <div class="vertical-spacer" style="padding-top: 133.333%;"></div>
-      <img class="img-responsive" ng-click="imageClicked()" style="display: block;" src="https://i.groupme.com/1125x1500.jpeg.3a0f19853d404319a27caa074a4d9b59">
+      <div class="vertical-spacer" style="padding-top: %%ImageHeightPercentage%%%;"></div>
+      <img class="img-responsive" ng-click="imageClicked()" style="display: block;" src="%%Image%%">
     </div>
     <div class="image-controls">
       <button class="btn btn-default btn-xs" ng-click="hideImage($event);" translate="Directives.GMImageContent.Hide">Hide</button>
@@ -116,16 +100,3 @@
   <!---->
 
 </div>
-
-
-    </div>
-
-    <div class="push-pages" gmvar-chat-id="chat.id" gmvar-page-size="chatContent.maxPageSize" gmvar-poll-water-mark="chatContent.pollWaterMarkID" gmvar-dirty-pushes="chatContent.dirtyPushes">
-  <!---->
-</div>
-
-  </div><!---->
-
-</div>
-</div>
-</html>
